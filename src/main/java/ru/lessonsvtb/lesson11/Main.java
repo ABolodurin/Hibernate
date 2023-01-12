@@ -16,6 +16,7 @@ public class Main {
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Customer.class)
                 .addAnnotatedClass(Product.class)
+                .addAnnotatedClass(Order.class)
                 .buildSessionFactory();
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
@@ -56,7 +57,7 @@ public class Main {
         session = factory.getCurrentSession();
         session.beginTransaction();
         Customer customer = session.get(Customer.class, customerId);
-        customer.getProductList().forEach(System.out::println);
+        customer.getOrders().forEach(order -> System.out.println(order.getProduct()));
         session.getTransaction().commit();
     }
 
@@ -64,7 +65,7 @@ public class Main {
         session = factory.getCurrentSession();
         session.beginTransaction();
         Product product = session.get(Product.class, productId);
-        product.getCustomerList().forEach(System.out::println);
+        product.getOrders().forEach(order -> System.out.println(order.getCustomer()));
         session.getTransaction().commit();
     }
 
@@ -89,7 +90,8 @@ public class Main {
         session.beginTransaction();
         Customer customer = session.get(Customer.class, customerId);
         Product product = session.get(Product.class, productId);
-        customer.getProductList().add(product);
+        Order order = new Order(customer,product,product.getProductPrice());
+        session.save(order);
         session.getTransaction().commit();
     }
 }

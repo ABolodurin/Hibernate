@@ -14,26 +14,41 @@ public class Product {
     private String productName;
     @Column(name = "product_price")
     private int productPrice;
+    @OneToMany(mappedBy = "product")
 
-    public Product() {
-    }
-
+    private List<Order> orders;
     public Product(String productName, int productPrice) {
         this.productName = productName;
         this.productPrice = productPrice;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "orders",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "customer_id")
-    )
-    private List<Customer> customerList;
-
-    public List<Customer> getCustomerList() {
-        return customerList;
+    public Product() {
     }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public int getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(int productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
 
     @Override
     public String toString(){

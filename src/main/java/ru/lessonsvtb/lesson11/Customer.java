@@ -12,6 +12,8 @@ public class Customer {
     private int customerId;
     @Column(name = "customer_name")
     private String customerName;
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders;
 
     public Customer(String customerName) {
         this.customerName = customerName;
@@ -32,19 +34,15 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "orders",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private List<Product> productList;
 
-    public List<Product> getProductList() {
-        return productList;
+    public List<Order> getOrders() {
+        return orders;
     }
+
+
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.customerName;
     }
 }
