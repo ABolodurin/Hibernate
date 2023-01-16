@@ -4,7 +4,7 @@
 
 CREATE TABLE IF NOT EXISTS public.orders
 (
-    order_id integer NOT NULL DEFAULT nextval('orders_order_id_seq'::regclass),
+    order_id serial NOT NULL,
     customer_id integer NOT NULL,
     product_id integer NOT NULL,
     product_price integer,
