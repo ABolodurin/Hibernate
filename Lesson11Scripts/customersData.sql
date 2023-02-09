@@ -1,2 +1,2 @@
-INSERT INTO public.customers(customer_name)
+INSERT INTO public.customers(name)
 	VALUES ('Andrew'), ('Mark'), ('Valera'), ('Max'), ('Sam'), ('John');

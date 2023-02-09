@@ -8,15 +8,18 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
+    @Column(name = "id")
     private int productId;
-    @Column(name = "product_name")
-    private String productName;
-    @Column(name = "product_price")
-    private int productPrice;
-    @OneToMany(mappedBy = "product")
 
+    @Column(name = "name")
+    private String productName;
+
+    @Column(name = "price")
+    private int productPrice;
+
+    @OneToMany(mappedBy = "product")
     private List<Order> orders;
+
     public Product(String productName, int productPrice) {
         this.productName = productName;
         this.productPrice = productPrice;
@@ -48,7 +51,6 @@ public class Product {
     public List<Order> getOrders() {
         return orders;
     }
-
 
     @Override
     public String toString(){

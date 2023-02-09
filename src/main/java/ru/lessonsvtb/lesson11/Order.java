@@ -7,16 +7,20 @@ import javax.persistence.*;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
+    @Column(name = "id")
     private int orderId;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private Product product;
-    @Column(name = "product_price")
+
+    @Column(name = "price")
     private int currentPrice;
+
 
     public Order(Customer customer, Product product, int currentPrice) {
         this.customer = customer;
