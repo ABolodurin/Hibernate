@@ -1,25 +1,15 @@
 package ru.lessonsvtb.lesson13.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.lessonsvtb.lesson13.entities.Product;
-
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 @Component
 public class ProductService {
-    @Autowired
     private List<Product> productList;
-
-    public ProductService(List<Product> productList) {
-        this.productList = productList;
-    }
-
-    public ProductService() {
-        productList = new ArrayList<>();
-    }
 
     public List<Product> getProductList() {
         return productList;
@@ -41,7 +31,7 @@ public class ProductService {
     }
 
     @PostConstruct
-    private void create(){
+    private void create() {
         ArrayList<Product> products = new ArrayList<>(Arrays.asList(
                 new Product("mouse", 10),
                 new Product("monitor", 75),
