@@ -11,7 +11,7 @@ import java.util.List;
 public class Main {
     static SessionFactory factory = null;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         factory = new Configuration()
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Item.class)
@@ -21,14 +21,20 @@ public class Main {
 
         for (int i = 0; i < 8; i++) {
             threadList.add(ddosThread());
+            threadList.get(i).start();
         }
 
-        threadList.forEach((Thread::start));
-        Thread.currentThread().join();
+        for (Thread t : threadList) {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         factory.close();
     }
 
-    public static Thread ddosThread(){
+    public static Thread ddosThread() {
         return new Thread(() -> {
             Session session = null;
             boolean done;
@@ -36,6 +42,7 @@ public class Main {
                 done = false;
                 while (!done) {
                     try {
+                        System.out.println(Thread.currentThread());
                         session = factory.getCurrentSession();
                         session.beginTransaction();
                         Item item = session.get(Item.class, (int) (Math.random() * 40) + 1);
@@ -45,6 +52,7 @@ public class Main {
                         session.getTransaction().commit();
                         done = true;
                     } catch (OptimisticLockException e) {
+                        assert session != null;
                         session.getTransaction().rollback();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
