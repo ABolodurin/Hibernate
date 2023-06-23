@@ -48,6 +48,8 @@ ___
   - (adv)Add the order detailing - price should be at the time of the order
 
 Hibernate\src\main\java\ru\lessonsvtb\lesson11
+
+*Hibernate\Lesson11Scripts*
 ___
 ### Lesson12. Multithreading, transactions, and locks
 - Create table ```items(id, val)``` and add 40 rows with ```val```=0 into it
@@ -56,7 +58,9 @@ The transaction requires ```Thread.sleep(5)``` in it. Required to do 2000 succes
 - Check the sum of ```val```, the correct sum is 16000. 
 
 Hibernate\src\main\java\ru\lessonsvtb\lesson12
-```sql
+
+*Hibernate\Lesson12Scripts*
+```SQL
 SELECT SUM(val) FROM ITEMS;
 ```
 ___
